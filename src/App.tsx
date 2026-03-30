@@ -1,28 +1,29 @@
 import { useEffect, useState } from 'react';
 import getRestaurantsByPostcode from './api/axios';
+import type { Restaurant } from './types/Restaurant';
 
 function App() {
-  const [count, setCount] = useState(0) // will remove later
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]); // will use later
 
-  const postcode = 'SW18 4PB'; // example postcode for now
-  
+  const postcode = 'SW18 4PB'; // example postcode for now, will be user input later
+  const normalisedPostcode = postcode.replace(/\s/g, '').toLowerCase();
+
   useEffect(() => {
-    console.log('fetching restaurants') // will remove later
-    getRestaurantsByPostcode(postcode)
-      .then((data) => console.log(data))
+    getRestaurantsByPostcode(normalisedPostcode)
+      .then((data) => {
+        setRestaurants(data);
+      })
       .catch((error) => console.error('API error', error));
-  }, []);
+  }, [normalisedPostcode]); // will change later to only run on postcode change
 
   return (
     <div className="App">
-      <h1 className="text-4xl font-bold text-red-600">Hello world</h1>
+      <h1 className="text-4xl font-bold text-red-600">Welcome to Bite Club</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <p className="text-lg text-white-700">Restaurant Name: {restaurants[0]?.restaurantName}</p>
+        <p className="text-lg text-white-700">Address: {restaurants[0]?.address.firstLine}, {restaurants[0]?.address.postalCode} {restaurants[0]?.address.city}</p>
+        <p className="text-lg text-white-700">Cuisines: {restaurants[0]?.cuisines.join(', ')}</p>
+        <p className="text-lg text-white-700">Rating: {restaurants[0]?.rating}</p>  
       </div>
     </div>
   )

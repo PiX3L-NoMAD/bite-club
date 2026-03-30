@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
 
 const app = express();
 const PORT = 3000;
@@ -15,7 +15,7 @@ app.get("/api/restaurants", (req, res) => {
     })
     .catch(error => {
       console.error(error);
-      res.status(500).json({ error: 'Failed to fetch restaurants' });
+      res.status(500).json({ error: 'Failed to fetch restaurants. Input must be a valid UK postcode, i.e. SW6 3GT.' });
     });
 });
 

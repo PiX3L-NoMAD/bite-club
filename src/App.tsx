@@ -6,8 +6,8 @@ import ResultsPage from './components/ResultsPage';
 function App() {
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]); // will use later
 
-  const postcode = 'CT1 2EH'; // example postcode for now, will be user input later
-  const normalisedPostcode = postcode.replace(/\s/g, '').toLowerCase();
+  const postcodeInput: string = 'sw18 4pb'; // example postcode for now, will be user input later
+  const normalisedPostcode = postcodeInput.replace(/\s/g, '').toUpperCase();
 
   useEffect(() => {
     getRestaurantsByPostcode(normalisedPostcode)
@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <h1 className="text-4xl font-bold text-red-600">Welcome to Bite Club</h1>
-        <ResultsPage restaurants={restaurants} />
+        <ResultsPage restaurants={restaurants} postcodeInput={postcodeInput} />
     </div>
   )
 }

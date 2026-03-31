@@ -18,7 +18,7 @@ function getRestaurantsByPostcode(postcode: string) {
                     firstLine = partsFirstLine.slice(0, -1).join(', ');
                 }
 
-                if (firstLine.endsWith(',')) { // remove trailing comma if it exists
+                if (firstLine.endsWith(',')) { 
                     firstLine = firstLine.slice(0, -1).trim(); 
                 }
 
@@ -47,7 +47,7 @@ function getRestaurantsByPostcode(postcode: string) {
                         city: r.address.city,
                     },
                     cuisines: r.cuisines.map((cuisine: any) => cuisine.name),
-                    rating: r.rating.starRating.toFixed(1), // convert to string with 1 decimal place, e.g. 4.0 instead of 4
+                    rating: r.rating.starRating.toFixed(1), 
                 };
             }) as Restaurant[];
             return tranformed;
